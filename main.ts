@@ -38,31 +38,16 @@ class Base64Encoder implements Coder {
 	}
 }
 
-class Base64Decoder implements Coder {
-	from:string;
-	to: string;
-
-	constructor() {
-		this.from = "base64";
-		this.to = "text";
-	}
-
-	transform (text:string) : string {
-		//let utf8Decode = new TextDecoder();
-		//return utf8Decode.decode(base64js.toByteArray(text));
-		return "";
-	}
-}
 
 export default class MyPlugin extends Plugin {
 	settings: MyPluginSettings;
 
 	// List of coders
-	coders: Coder[] = [new Base64Encoder(), new Base64Decoder()];
+	coders: Coder[] = [new Base64Encoder()];
 
 	async onload() {
 		this.registerMarkdownCodeBlockProcessor('transform-text-base64', this.processTextToBase64);
-		this.registerMarkdownCodeBlockProcessor('transform-base64-text', this.processBase64ToText);
+		//this.registerMarkdownCodeBlockProcessor('transform-base64-text', this.processBase64ToText);
 	}
 
 	// function to get a coder by from and to types

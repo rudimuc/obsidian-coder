@@ -1,11 +1,9 @@
 {
-	"id": "obsidian-encoder-decoder-plugin",
+	"id": "obsidian-coder-plugin",
 	"name": "Encoder/Decoder Plugin",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "This plugin converts texts into base64 and other formats.",
+	"author": "Rudi Häusler",
 	"isDesktopOnly": false
 }

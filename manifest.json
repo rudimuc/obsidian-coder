@@ -1,7 +1,7 @@
 {
-	"id": "coder-plugin",
+	"id": "coder",
 	"name": "Encoder/Decoder",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"minAppVersion": "0.15.0",
 	"description": "This plugin converts texts into base64 and other formats.",
 	"author": "Rudi Häusler",

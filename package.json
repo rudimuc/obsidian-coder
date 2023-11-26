@@ -1,5 +1,5 @@
 {
-	"name": "obsidian-coder-plugin",
+	"name": "coder-plugin",
 	"version": "1.0.0",
 	"description": "This plugin converts texts into base64 and other formats.",
 	"main": "main.js",

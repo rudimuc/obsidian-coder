@@ -38,3 +38,18 @@ dGhpcyBpcyBhIHRleHQgdG8gZW5jb2Rl
 ## Version History
 ### 1.0.0
 - First version to convert text to base64
+
+
+## Roadmap
+
+Upcoming changes for this plugin:
+
+- Base64 to text
+- Text to Vigenere
+- Vigenere to text
+- Text to ROT13
+- ROT13 to text
+- Text to hex
+- Hex to text
+- Text to ascii art (based on https://www.npmjs.com/package/figlet)
+- 

@@ -10,6 +10,7 @@ interface Coder {
 	to: string;
 
 	transform (text:string) : string;
+	checkInput (text:string) : boolean;
 
 }
 
@@ -25,6 +26,11 @@ class Base64Encoder implements Coder {
 	transform (text:string) : string {
 		let utf8Encode = new TextEncoder();
 		return base64js.fromByteArray(utf8Encode.encode(text));
+	}
+
+	checkInput(text: string): boolean {
+		// For now, we assume that all text is valid
+		return true;
 	}
 }
 
@@ -64,7 +70,11 @@ export default class CoderPlugin extends Plugin {
 
 		// convert the content variable to a byte array
 		if(coder != null) {
-			destination = document.createTextNode( coder.transform(content));
+			if(coder.checkInput(content)) {
+				destination = document.createTextNode(coder.transform(content));
+			} else {
+				destination = document.createTextNode("Invalid input for coder " + coder.from + " to " + coder.to);
+			}
 		} else {
 			destination = document.createTextNode( "No coder found!");
 		}

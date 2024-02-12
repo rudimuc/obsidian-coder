@@ -1,9 +1,9 @@
 {
 	"id": "coder",
 	"name": "Encoder/Decoder",
-	"version": "1.0.3",
+	"version": "1.1.0",
 	"minAppVersion": "0.15.0",
-	"description": "Converts a text into base64 format.",
+	"description": "Converts text into other formats (base64, ROT13)",
 	"author": "Rudi Häusler",
 	"isDesktopOnly": false
 }

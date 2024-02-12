@@ -34,14 +34,66 @@ class Base64Encoder implements Coder {
 	}
 }
 
+class Rot13Encoder implements Coder {
+	from:string;
+	to: string;
+
+	constructor() {
+		this.from = "text";
+		this.to = "rot13";
+	}
+
+	rot13(txt:string) {
+		return txt.replace(/[a-z]/gi, c =>
+			"NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm"
+				[ "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".indexOf(c) ] );
+	}
+
+	transform (text:string) : string {
+		return this.rot13(text);
+	}
+
+	checkInput(text: string): boolean {
+		// For now, we assume that all text is valid. We will only encode A-Z and a-z. The rest will be left as is.
+		return true;
+	}
+}
+
+class Rot13Decoder implements Coder {
+	from:string;
+	to: string;
+
+	constructor() {
+		this.from = "rot13";
+		this.to = "text";
+	}
+
+	derot13(txt:string) {
+		return txt.replace(/[a-z]/gi, c =>
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+				[ "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm".indexOf(c) ] );
+	}
+
+	transform (text:string) : string {
+		return this.derot13(text);
+	}
+
+	checkInput(text: string): boolean {
+		// For now, we assume that all text is valid. We will only encode A-Z and a-z. The rest will be left as is.
+		return true;
+	}
+}
+
 
 export default class CoderPlugin extends Plugin {
 
 	// List of coders
-	coders: Coder[] = [new Base64Encoder()];
+	coders: Coder[] = [new Base64Encoder(), new Rot13Encoder(), new Rot13Decoder()];
 
 	async onload() {
 		this.registerMarkdownCodeBlockProcessor('transform-text-base64', this.processTextToBase64);
+		this.registerMarkdownCodeBlockProcessor('transform-text-rot13', this.processTextToRot13);
+		this.registerMarkdownCodeBlockProcessor('transform-rot13-text', this.processRot13ToText);
 	}
 
 	// function to get a coder by from and to types
@@ -58,15 +110,28 @@ export default class CoderPlugin extends Plugin {
 
 	}
 
-	
 	processTextToBase64 = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
+		let coder = this.getCoder("text", "base64");
+		this.processText(content, el, coder);
+	}
+
+	processTextToRot13 = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
+		let coder = this.getCoder("text", "rot13");
+		this.processText(content, el, coder);
+	}
+
+	processRot13ToText = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
+		let coder = this.getCoder("rot13", "text");
+		this.processText(content, el, coder);
+	}
+
+	processText(content: string, el: HTMLElement, coder: Coder|null) {
 		var destination;
 
 		if(content.endsWith("\n")) {
 			// Obsidian gives an unpretty linebreak at the end. Don't encode it in our content!
 			content = content.substring(0, content.length - 1);
 		}
-		let coder = this.getCoder("text", "base64");
 
 		// convert the content variable to a byte array
 		if(coder != null) {
@@ -82,7 +147,6 @@ export default class CoderPlugin extends Plugin {
 		el.appendChild(destination);
 		return;
 	}
-	
 	
 	/**
 	processBase64ToText = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {

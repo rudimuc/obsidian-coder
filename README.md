@@ -23,7 +23,18 @@ From Obsidian v0.9.8, you can activate this plugin within Obsidian by doing the 
 
 ## Usage
 
-Type the `transform-text-base64` keyword to use the Plugin.
+Following conversions are available
+
+| Source    | Destination   | Markdown keyword       |
+|-----------|---------------|------------------------|
+| text      | base64        | transform-text-base64  |
+| text      | ROT13         | transform-text-rot13   |
+| ROT13     | text          | transform-rot13-text   |
+
+
+Type the Markdown keyword to use the specific encoding.
+
+For example if you like to print out a given text as base64 you have to write:
 
 ````markdown
 ```transform-text-base64
@@ -36,6 +47,10 @@ The result will be this:
 dGhpcyBpcyBhIHRleHQgdG8gZW5jb2Rl
 
 ## Version History
+
+### 1.1.0
+- Added ROT13 conversion
+
 ### 1.0.0
 - First version to convert text to base64
 
@@ -47,7 +62,6 @@ Upcoming changes for this plugin:
 - Base64 to text
 - Text to Vigenere
 - Vigenere to text
-- Text to ROT13
 - ROT13 to text
 - Text to hex
 - Hex to text

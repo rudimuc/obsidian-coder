@@ -50,6 +50,9 @@ dGhpcyBpcyBhIHRleHQgdG8gZW5jb2Rl
 
 ### 1.2.0
 - Added Base64 Decoder
+- Updated dependency versions (vulnarabilities)
+- Base64 lib no longer used and removed
+- Refactoring of project structure
 
 ### 1.1.0
 - Added ROT13 conversion

@@ -1,89 +1,8 @@
 import { App, MarkdownView, Plugin, MarkdownPostProcessorContext, PluginSettingTab, Setting } from 'obsidian';
 
-import * as base64js from 'base64-js';
-
-
-// Abstract class for all coders
-interface Coder {
-
-	from: string;
-	to: string;
-
-	transform (text:string) : string;
-	checkInput (text:string) : boolean;
-
-}
-
-class Base64Encoder implements Coder {
-	from:string;
-	to: string;
-
-	constructor() {
-		this.from = "text";
-		this.to = "base64";
-	}
-
-	transform (text:string) : string {
-		let utf8Encode = new TextEncoder();
-		return base64js.fromByteArray(utf8Encode.encode(text));
-	}
-
-	checkInput(text: string): boolean {
-		// For now, we assume that all text is valid
-		return true;
-	}
-}
-
-class Rot13Encoder implements Coder {
-	from:string;
-	to: string;
-
-	constructor() {
-		this.from = "text";
-		this.to = "rot13";
-	}
-
-	rot13(txt:string) {
-		return txt.replace(/[a-z]/gi, c =>
-			"NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm"
-				[ "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".indexOf(c) ] );
-	}
-
-	transform (text:string) : string {
-		return this.rot13(text);
-	}
-
-	checkInput(text: string): boolean {
-		// For now, we assume that all text is valid. We will only encode A-Z and a-z. The rest will be left as is.
-		return true;
-	}
-}
-
-class Rot13Decoder implements Coder {
-	from:string;
-	to: string;
-
-	constructor() {
-		this.from = "rot13";
-		this.to = "text";
-	}
-
-	derot13(txt:string) {
-		return txt.replace(/[a-z]/gi, c =>
-			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-				[ "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm".indexOf(c) ] );
-	}
-
-	transform (text:string) : string {
-		return this.derot13(text);
-	}
-
-	checkInput(text: string): boolean {
-		// For now, we assume that all text is valid. We will only encode A-Z and a-z. The rest will be left as is.
-		return true;
-	}
-}
-
+import { Coder } from "./Coder";
+import { Base64Encoder } from "./Base64";
+import { Rot13Encoder, Rot13Decoder } from "./Rot13";
 
 export default class CoderPlugin extends Plugin {
 
@@ -147,27 +66,5 @@ export default class CoderPlugin extends Plugin {
 		el.appendChild(destination);
 		return;
 	}
-	
-	/**
-	processBase64ToText = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
-		var destination;
-
-		if(content.endsWith("\n")) {
-			// Obsidian gives an unpretty linebreak at the end. Don't encode it in our content!
-			content = content.substring(0, content.length - 1);
-		}
-		let coder = this.getCoder("base64", "text");
-
-		// convert the content variable to a byte array
-		if(coder != null) {
-			destination = document.createTextNode (coder.transform(content));
-		} else {
-			destination = document.createTextNode ( "No coder found!" );
-		}
-
-		el.appendChild(destination);
-		return;
-	}**/
-
 }
 

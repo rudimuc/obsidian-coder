@@ -3,6 +3,7 @@ import { App, MarkdownView, Plugin, MarkdownPostProcessorContext, PluginSettingT
 import { Coder } from "./Coder";
 import { Base64Encoder, Base64Decoder } from "./Base64";
 import { Rot13Encoder, Rot13Decoder } from "./Rot13";
+import { AtbashEncoder, AtbashDecoder } from "./Atbash";
 
 export default class CoderPlugin extends Plugin {
 
@@ -14,6 +15,10 @@ export default class CoderPlugin extends Plugin {
 		this.registerMarkdownCodeBlockProcessor('transform-base64-text', this.processBase64ToText);
 		this.registerMarkdownCodeBlockProcessor('transform-text-rot13', this.processTextToRot13);
 		this.registerMarkdownCodeBlockProcessor('transform-rot13-text', this.processRot13ToText);
+		this.registerMarkdownCodeBlockProcessor('transform-text-text',this.processTextToAtbash);
+		this.registerMarkdownCodeBlockProcessor('transform-atbash-text',this.processAtbashToText);
+		
+
 	}
 
 	// function to get a coder by from and to types
@@ -47,6 +52,16 @@ export default class CoderPlugin extends Plugin {
 
 	processRot13ToText = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
 		let coder = this.getCoder("rot13", "text");
+		this.processText(content, el, coder);
+	}
+
+	processTextToAtbash = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
+		let coder = this.getCoder("text", "atbash");
+		this.processText(content, el, coder);
+	}
+
+	processAtbashToText = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
+		let coder = this.getCoder("atbash", "text");
 		this.processText(content, el, coder);
 	}
 

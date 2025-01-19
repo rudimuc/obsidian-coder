@@ -3,7 +3,7 @@
 	"name": "Encoder/Decoder",
 	"version": "1.2.0",
 	"minAppVersion": "0.15.0",
-	"description": "Converts texts into other formats (base64, ROT13) and vice versa",
+	"description": "Converts texts into other formats (base64, ROT13, atbash) and vice versa",
 	"author": "Rudi Häusler",
 	"isDesktopOnly": false
 }

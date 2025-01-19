@@ -1,7 +1,7 @@
 {
 	"name": "coder",
 	"version": "1.1.0",
-	"description": "Converts text into other formats (base64, ROT13)",
+	"description": "Converts text into other formats (base64, ROT13, atbash)",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",

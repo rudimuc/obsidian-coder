@@ -8,14 +8,14 @@ import { AtbashEncoder, AtbashDecoder } from "./Atbash";
 export default class CoderPlugin extends Plugin {
 
 	// List of coders
-	coders: Coder[] = [new Base64Encoder(), new Base64Decoder(), new Rot13Encoder(), new Rot13Decoder()];
+	coders: Coder[] = [new Base64Encoder(), new Base64Decoder(), new Rot13Encoder(), new Rot13Decoder(), new AtbashEncoder(), new AtbashDecoder()];
 
 	async onload() {
 		this.registerMarkdownCodeBlockProcessor('transform-text-base64', this.processTextToBase64);
 		this.registerMarkdownCodeBlockProcessor('transform-base64-text', this.processBase64ToText);
 		this.registerMarkdownCodeBlockProcessor('transform-text-rot13', this.processTextToRot13);
 		this.registerMarkdownCodeBlockProcessor('transform-rot13-text', this.processRot13ToText);
-		this.registerMarkdownCodeBlockProcessor('transform-text-text',this.processTextToAtbash);
+		this.registerMarkdownCodeBlockProcessor('transform-text-atbash',this.processTextToAtbash);
 		this.registerMarkdownCodeBlockProcessor('transform-atbash-text',this.processAtbashToText);
 		
 

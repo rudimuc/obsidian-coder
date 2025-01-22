@@ -1,6 +1,6 @@
 
 // Abstract class for all coders
-interface Coder {
+export interface Coder {
 
         from: string;
         to: string;

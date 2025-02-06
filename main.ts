@@ -11,14 +11,14 @@ export default class CoderPlugin extends Plugin {
 	coders: Coder[] = [new Base64Encoder(), new Base64Decoder(), new Rot13Encoder(), new Rot13Decoder(), new AtbashEncoder(), new AtbashDecoder()];
 
 	async onload() {
-		this.registerMarkdownCodeBlockProcessor('transform-text-base64', this.processTextToBase64);
-		this.registerMarkdownCodeBlockProcessor('transform-base64-text', this.processBase64ToText);
-		this.registerMarkdownCodeBlockProcessor('transform-text-rot13', this.processTextToRot13);
-		this.registerMarkdownCodeBlockProcessor('transform-rot13-text', this.processRot13ToText);
-		this.registerMarkdownCodeBlockProcessor('transform-text-atbash',this.processTextToAtbash);
-		this.registerMarkdownCodeBlockProcessor('transform-atbash-text',this.processAtbashToText);
-		
-
+		this.coders.forEach(coder => {
+		    this.registerMarkdownCodeBlockProcessor(
+		        `transform-${coder.from}-${coder.to}`,
+		        async (content, el, ctx) => {
+		            this.processText(content, el, coder);
+		        }
+		    );
+		});
 	}
 
 	// function to get a coder by from and to types
@@ -33,36 +33,6 @@ export default class CoderPlugin extends Plugin {
 
 	onunload() {
 
-	}
-
-	processTextToBase64 = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
-		let coder = this.getCoder("text", "base64");
-		this.processText(content, el, coder);
-	}
-
-	processBase64ToText = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
-		let coder = this.getCoder("base64", "text");
-		this.processText(content, el, coder);
-	}
-
-	processTextToRot13 = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
-		let coder = this.getCoder("text", "rot13");
-		this.processText(content, el, coder);
-	}
-
-	processRot13ToText = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
-		let coder = this.getCoder("rot13", "text");
-		this.processText(content, el, coder);
-	}
-
-	processTextToAtbash = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
-		let coder = this.getCoder("text", "atbash");
-		this.processText(content, el, coder);
-	}
-
-	processAtbashToText = async (content: string, el: HTMLElement, ctx: MarkdownPostProcessorContext) => {
-		let coder = this.getCoder("atbash", "text");
-		this.processText(content, el, coder);
 	}
 
 	processText(content: string, el: HTMLElement, coder: Coder|null) {

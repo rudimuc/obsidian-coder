@@ -2,13 +2,23 @@ import { App, MarkdownView, Plugin, MarkdownPostProcessorContext, PluginSettingT
 
 import { Coder } from "./Coder";
 import { Base64Encoder, Base64Decoder } from "./Base64";
+import { Base85Encoder, Base85Decoder } from "./Base85";
 import { Rot13Encoder, Rot13Decoder } from "./Rot13";
 import { AtbashEncoder, AtbashDecoder } from "./Atbash";
 
 export default class CoderPlugin extends Plugin {
 
 	// List of coders
-	coders: Coder[] = [new Base64Encoder(), new Base64Decoder(), new Rot13Encoder(), new Rot13Decoder(), new AtbashEncoder(), new AtbashDecoder()];
+	coders: Coder[] = [
+		new Base64Encoder(),
+		new Base64Decoder(),
+		new Base85Encoder(),
+		new Base85Decoder(),
+		new Rot13Encoder(),
+		new Rot13Decoder(),
+		new AtbashEncoder(),
+		new AtbashDecoder()
+	];
 
 	async onload() {
 		this.coders.forEach(coder => {

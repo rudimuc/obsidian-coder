@@ -29,6 +29,8 @@ Following conversions are available
 |-----------|---------------|------------------------|
 | text      | base64        | transform-text-base64  |
 | base64    | text          | transform-base64-text  |
+| text      | base85        | transform-text-base85  |
+| base85    | text          | transform-base85-text  |
 | text      | ROT13         | transform-text-rot13   |
 | ROT13     | text          | transform-rot13-text   |
 | text      | atbash        | transform-text-atbash  |
@@ -50,6 +52,10 @@ The result will be this:
 dGhpcyBpcyBhIHRleHQgdG8gZW5jb2Rl
 
 ## Version History
+
+### 1.3.0
+- Refactorings in main.js for more dynamic bindings
+- Added base85 conversion
 
 ### 1.2.1
 - Added atbash conversion
@@ -75,6 +81,5 @@ Upcoming changes for this plugin:
 - Hex encoder/decoder
 - Base16 encoder/decoder
 - Base32 encoder/decoder
-- Base85 encoder/decoder
 - Morse encoder/decoder
 - Text to ascii art (based on https://www.npmjs.com/package/figlet)

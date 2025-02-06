@@ -22,13 +22,8 @@ export default class CoderPlugin extends Plugin {
 	}
 
 	// function to get a coder by from and to types
-	getCoder(from: string, to: string) {
-		for (let coder of this.coders) {
-			if (coder.from == from && coder.to == to) {
-				return coder;
-			}
-		}
-		return null;
+	getCoder(from: string, to: string): Coder | null {
+		return this.coders.find(coder => coder.from === from && coder.to === to) || null;
 	}
 
 	onunload() {

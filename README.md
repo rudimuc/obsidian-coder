@@ -1,3 +1,8 @@
+[![Stars](https://img.shields.io/github/stars/rudimuc/obsidian-coder?style=flat)](https://github.com/rudimuc/obsidian-coder/stargazers)
+[![Downloads](https://img.shields.io/github/downloads/rudimuc/obsidian-coder/total.svg)](https://github.com/rudimuc/obsidian-coder/releases)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)](#)
+
+
 # Encoder/Decoder Obsidian Plugin
 
 This is a plugin for [Obsidian](https://obsidian.md) to encode / decode texts.

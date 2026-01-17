@@ -1,9 +1,9 @@
 {
 	"id": "coder",
 	"name": "Encoder/Decoder",
-	"version": "1.3.0",
+	"version": "1.3.1",
 	"minAppVersion": "0.15.0",
-	"description": "Converts texts into other formats (base64, base85, ROT13, atbash) and vice versa",
+	"description": "Converts texts into other formats (base16, base64, base85, ROT13, atbash) and vice versa",
 	"author": "Rudi Häusler",
 	"isDesktopOnly": false
 }

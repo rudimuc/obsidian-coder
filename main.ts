@@ -7,7 +7,16 @@ import { TextToBase16Encoder, Base16ToTextDecoder } from "./Base16";
 import { Rot13Encoder, Rot13Decoder } from "./Rot13";
 import { AtbashEncoder, AtbashDecoder } from "./Atbash";
 
+interface CoderSettings {
+	preserveBreaks: boolean;
+}
+
+const DEFAULT_SETTINGS: CoderSettings = {
+	preserveBreaks: false
+}
+
 export default class CoderPlugin extends Plugin {
+	settings: CoderSettings;
 
 	// List of coders
 	coders: Coder[] = [
@@ -24,6 +33,10 @@ export default class CoderPlugin extends Plugin {
 	];
 
 	async onload() {
+		await this.loadSettings();
+
+		this.addSettingTab(new CoderSettingTab(this.app, this));
+
 		this.coders.forEach(coder => {
 		    this.registerMarkdownCodeBlockProcessor(
 		        `transform-${coder.from}-${coder.to}`,
@@ -44,26 +57,70 @@ export default class CoderPlugin extends Plugin {
 	}
 
 	processText(content: string, el: HTMLElement, coder: Coder|null) {
-		var destination;
-
 		if(content.endsWith("\n")) {
 			// Obsidian gives an unpretty linebreak at the end. Don't encode it in our content!
 			content = content.substring(0, content.length - 1);
 		}
 
+		let outputText: string;
+		
 		// convert the content variable to a byte array
 		if(coder != null) {
 			if(coder.checkInput(content)) {
-				destination = document.createTextNode(coder.transform(content));
+				outputText = coder.transform(content);
 			} else {
-				destination = document.createTextNode("Invalid input for coder " + coder.from + " to " + coder.to);
+				outputText = "Invalid input for coder " + coder.from + " to " + coder.to;
 			}
 		} else {
-			destination = document.createTextNode( "No coder found!");
+			outputText = "No coder found!";
 		}
 
-		el.appendChild(destination);
+		// Use <pre> tag if preserveBreaks is enabled to maintain newlines
+		if(this.settings.preserveBreaks) {
+			const pre = document.createElement("pre");
+			pre.textContent = outputText;
+			el.appendChild(pre);
+		} else {
+			const destination = document.createTextNode(outputText);
+			el.appendChild(destination);
+		}
+		
 		return;
+	}
+
+	async loadSettings() {
+		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+	}
+
+	async saveSettings() {
+		await this.saveData(this.settings);
+	}
+}
+
+class CoderSettingTab extends PluginSettingTab {
+	plugin: CoderPlugin;
+
+	constructor(app: App, plugin: CoderPlugin) {
+		super(app, plugin);
+		this.plugin = plugin;
+	}
+
+	display(): void {
+		const {containerEl} = this;
+
+		containerEl.empty();
+
+		containerEl.createEl('h2', {text: 'Coder Settings'});
+
+		new Setting(containerEl)
+			.setName('Preserve breaks')
+			.setDesc('Preserve newline characters (\\n) in the encoded output')
+			.addToggle(toggle => toggle
+				.setValue(this.plugin.settings.preserveBreaks)
+				.onChange(async (value) => {
+					this.plugin.settings.preserveBreaks = value;
+					await this.plugin.saveSettings();
+				}));
 	}
 }
 

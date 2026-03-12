@@ -60,6 +60,15 @@ The result will be this:
 
 dGhpcyBpcyBhIHRleHQgdG8gZW5jb2Rl
 
+## Settings
+
+### Preserve Breaks
+
+Controls how newline characters are handled during encoding and decoding.
+
+- **Off (default):** Content is encoded as-is, including any newline characters. The output is rendered as plain text.
+- **On:** Each line is encoded or decoded independently and newlines are preserved in the output, which is displayed using a `<pre>` block.
+
 ## Version History
 
 ### 1.3.1

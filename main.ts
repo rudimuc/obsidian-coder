@@ -64,12 +64,25 @@ export default class CoderPlugin extends Plugin {
 
 		let outputText: string;
 		
-		// convert the content variable to a byte array
 		if(coder != null) {
-			if(coder.checkInput(content)) {
-				outputText = coder.transform(content);
+			if(this.settings.preserveBreaks) {
+				// Encode each line independently, preserving line breaks in the output
+				const lines = content.split(/\r?\n/);
+				const results: string[] = [];
+				for(const line of lines) {
+					if(coder.checkInput(line) || line === "") {
+						results.push(coder.transform(line));
+					} else {
+						results.push("Invalid input for coder " + coder.from + " to " + coder.to);
+					}
+				}
+				outputText = results.join("\n");
 			} else {
-				outputText = "Invalid input for coder " + coder.from + " to " + coder.to;
+				if(coder.checkInput(content)) {
+					outputText = coder.transform(content);
+				} else {
+					outputText = "Invalid input for coder " + coder.from + " to " + coder.to;
+				}
 			}
 		} else {
 			outputText = "No coder found!";
@@ -114,7 +127,7 @@ class CoderSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName('Preserve breaks')
-			.setDesc('Preserve newline characters (\\n) in the encoded output')
+			.setDesc('When enabled, each line is encoded independently and line breaks are preserved in the output. When disabled, content is encoded as-is.')
 			.addToggle(toggle => toggle
 				.setValue(this.plugin.settings.preserveBreaks)
 				.onChange(async (value) => {

@@ -1,7 +1,7 @@
 {
 	"id": "coder",
 	"name": "Transcode",
-	"version": "1.3.2",
+	"version": "1.3.3",
 	"minAppVersion": "0.15.0",
 	"description": "Converts texts into other formats (base16, base32, base64, base85, ROT13, atbash) and vice versa",
 	"author": "Rudi Häusler",

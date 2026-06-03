@@ -1,6 +1,6 @@
 {
 	"name": "coder",
-	"version": "1.3.3",
+	"version": "1.3.4",
 	"description": "Converts text into other formats (base16, base32, base64, base85, ROT13, atbash)",
 	"main": "main.js",
 	"scripts": {

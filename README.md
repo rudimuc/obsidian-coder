@@ -3,7 +3,7 @@
 [![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-blue)](#)
 
 
-# Encoder/Decoder Obsidian Plugin
+# Transcoder Obsidian Plugin
 
 This is a plugin for [Obsidian](https://obsidian.md) to encode / decode texts.
 
@@ -21,7 +21,7 @@ From Obsidian v0.9.8, you can activate this plugin within Obsidian by doing the 
 - Open Settings > Third-party plugin
 - Make sure Safe mode is **off**
 - Click Browse community plugins
-- Search for "Encoder/Decoder Plugin"
+- Search for "Transcoder"
 - Click Install
 - Once installed, close the community plugins window and activate the newly installed plugin
 

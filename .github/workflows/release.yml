@@ -33,6 +33,4 @@ jobs:
             dist/main.js
             dist/styles.css
             dist/manifest.json
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

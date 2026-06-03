@@ -10,6 +10,7 @@ This is a plugin for [Obsidian](https://obsidian.md) to encode / decode texts.
 Currently supported algorithms are:
 - atbash
 - Base16
+- Base32
 - Base64
 - Base85
 - ROT13
@@ -36,6 +37,8 @@ Following conversions are available
 |-----------|---------------|------------------------|
 | text      | base16        | transform-text-base16  |
 | base16    | text          | transform-base16-text  |
+| text      | base32        | transform-text-base32  |
+| base32    | text          | transform-base32-text  |
 | text      | base64        | transform-text-base64  |
 | base64    | text          | transform-base64-text  |
 | text      | base85        | transform-text-base85  |
@@ -61,6 +64,9 @@ The result will be this:
 dGhpcyBpcyBhIHRleHQgdG8gZW5jb2Rl
 
 ## Version History
+
+### 1.3.3
+- Added base32 conversion
 
 ### 1.3.1
 - Added base16 conversion
@@ -91,6 +97,5 @@ Upcoming changes for this plugin:
 
 - Vigenere encoder/decoder
 - Hex encoder/decoder
-- Base32 encoder/decoder
 - Morse encoder/decoder
 - Text to ascii art (based on https://www.npmjs.com/package/figlet)

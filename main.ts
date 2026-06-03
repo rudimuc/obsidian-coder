@@ -4,6 +4,7 @@ import { Coder } from "./Coder";
 import { Base64Encoder, Base64Decoder } from "./Base64";
 import { Base85Encoder, Base85Decoder } from "./Base85";
 import { TextToBase16Encoder, Base16ToTextDecoder } from "./Base16";
+import { TextToBase32Encoder, Base32ToTextDecoder } from "./Base32";
 import { Rot13Encoder, Rot13Decoder } from "./Rot13";
 import { AtbashEncoder, AtbashDecoder } from "./Atbash";
 
@@ -26,6 +27,8 @@ export default class CoderPlugin extends Plugin {
 		new Base85Decoder(),
 		new TextToBase16Encoder(),
 		new Base16ToTextDecoder(),
+		new TextToBase32Encoder(),
+		new Base32ToTextDecoder(),
 		new Rot13Encoder(),
 		new Rot13Decoder(),
 		new AtbashEncoder(),
@@ -109,8 +112,6 @@ class CoderSettingTab extends PluginSettingTab {
 		const {containerEl} = this;
 
 		containerEl.empty();
-
-		containerEl.createEl('h2', {text: 'Coder Settings'});
 
 		new Setting(containerEl)
 			.setName('Preserve breaks')
